@@ -1,0 +1,48 @@
+.load {
+  font-size: 15px;
+}
+
+.divPadre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.loader {
+  width: 60px; /* ancho del contenedor */
+  height: 60px; /* altura del contenedor */
+  position: relative;
+}
+
+.square,
+.circle,
+.triangle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 1s linear infinite;
+}
+
+.square {
+  width: 40px; /* ancho del cuadrado */
+  height: 40px; /* altura del cuadrado */
+  border: 3px solid black;
+}
+
+.circle {
+  width: 30px; /* ancho del círculo */
+  height: 30px; /* altura del círculo */
+  border-radius: 50%; /* forma del círculo */
+  border: 2px solid black;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

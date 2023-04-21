@@ -1,0 +1,48 @@
+.div1 {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 20px;
+}
+
+.link {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.link {
+  border: none; /* Quita el borde del botón */
+  color: rgb(0, 0, 0); /* Color del texto */
+  padding: 15px 32px; /* Espaciado del botón */
+  text-align: center; /* Alineación del texto */
+  text-decoration: none; /* Quita el link predeterminado del texto */
+  display: inline-block; /* Ajusta el ancho del botón al contenido */
+  font-size: 16px; /* Tamaño del texto */
+  margin: 4px 2px; /* Margen del botón */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón sobre el botón */
+  position: relative; /* Establece la posición relativa para el botón */
+}
+
+.link:after {
+  content: ""; /* Agrega contenido al pseudo-elemento */
+  position: absolute; /* Establece la posición absoluta para el pseudo-elemento */
+  width: 100%; /* Establece la anchura del pseudo-elemento al 100% del botón */
+  height: 2px; /* Establece la altura del pseudo-elemento */
+  bottom: -2px; /* Ajusta la posición del pseudo-elemento en la parte inferior del botón */
+  left: 0; /* Ajusta la posición del pseudo-elemento a la izquierda */
+  background-color: transparent; /* Establece el color de fondo del pseudo-elemento */
+  transition: background-color 0.3s ease; /* Agrega una transición de color de fondo al pseudo-elemento */
+}
+
+.link:hover:after {
+  background-color: rgb(
+    26,
+    28,
+    26
+  ); /* Cambia el color de fondo del pseudo-elemento al pasar el ratón sobre el botón */
+}
+
+.imagen {
+  width: 30px;
+  height: 30px;
+}

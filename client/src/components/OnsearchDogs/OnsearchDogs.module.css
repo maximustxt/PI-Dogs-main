@@ -1,0 +1,41 @@
+.input {
+  padding: 8px 12px; /* Ajusta el espaciado del campo de entrada */
+  font-size: 10px; /* Ajusta el tamaño del texto del campo de entrada */
+  border: none; /* Quita el borde del campo de entrada */
+  border-bottom: 2px solid #282828; /* Agrega un borde inferior gris claro */
+  width: 200px; /* Ajusta el ancho del campo de entrada */
+}
+
+.busqueda {
+  background-color: #000000; /* Color de fondo */
+  border: none; /* Sin borde */
+  color: white; /* Color del texto */
+  height: 40px;
+  width: 80px;
+  border-radius: 3px;
+  /* padding: 15px 32px; Tamaño del botón */
+  text-align: center; /* Alineación del texto */
+  text-decoration: none; /* Sin subrayado */
+  display: inline-block; /* Mostrar como un bloque */
+  font-size: 10px; /* Tamaño de la fuente */
+  margin: 10px; /* Margen */
+  cursor: pointer; /* Cambiar el cursor a un puntero */
+}
+
+/* Animación al hacer hover */
+.busqueda:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.1); /* Escalar el botón */
+  transition-duration: 0.2s; /* Duración de la transición */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+}
+
+/* Animación al hacer clic */
+.busqueda:active {
+  color: white;
+  background-color: #000000;
+  transform: scale(0.9); /* Escalar el botón */
+  transition-duration: 0.2s; /* Duración de la transición */
+  box-shadow: 0 0 5px rgb(237, 237, 237); /* Sombra */
+}
