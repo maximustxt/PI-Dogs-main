@@ -34,3 +34,14 @@
   width: fit-content; /* ajusta el ancho según tu preferencia */
   width: 200px; /* asegura que el ancho no sea más grande que el contenedor */
 }
+
+.buton {
+  border-radius: 20px;
+  background-color: transparent;
+  border: 0px;
+}
+
+.imagen {
+  width: 35px;
+  height: 30px;
+}

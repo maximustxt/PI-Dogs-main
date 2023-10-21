@@ -1,41 +1,46 @@
 .input {
   padding: 8px 12px; /* Ajusta el espaciado del campo de entrada */
-  font-size: 10px; /* Ajusta el tamaño del texto del campo de entrada */
+  font-size: 12px; /* Ajusta el tamaño del texto del campo de entrada */
   border: none; /* Quita el borde del campo de entrada */
   border-bottom: 2px solid #282828; /* Agrega un borde inferior gris claro */
   width: 200px; /* Ajusta el ancho del campo de entrada */
+  height: 40px;
+  border-radius: 5px;
 }
 
 .busqueda {
-  background-color: #000000; /* Color de fondo */
-  border: none; /* Sin borde */
-  color: white; /* Color del texto */
+  margin: 5px;
+  text-decoration: none;
+  background-color: rgb(196, 245, 229);
+  color: #000000;
+  border: none;
+  border-radius: 5px;
   height: 40px;
-  width: 80px;
-  border-radius: 3px;
-  /* padding: 15px 32px; Tamaño del botón */
-  text-align: center; /* Alineación del texto */
-  text-decoration: none; /* Sin subrayado */
-  display: inline-block; /* Mostrar como un bloque */
-  font-size: 10px; /* Tamaño de la fuente */
-  margin: 10px; /* Margen */
-  cursor: pointer; /* Cambiar el cursor a un puntero */
+  width: 100px;
+  font-size: 10px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Animación al hacer hover */
 .busqueda:hover {
-  background-color: white;
-  color: black;
-  transform: scale(1.1); /* Escalar el botón */
-  transition-duration: 0.2s; /* Duración de la transición */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+  background-color: #ffffff;
+  color: #3c8b7e;
+  animation: neon-glow 1s ease-out infinite alternate;
 }
 
-/* Animación al hacer clic */
-.busqueda:active {
-  color: white;
-  background-color: #000000;
-  transform: scale(0.9); /* Escalar el botón */
-  transition-duration: 0.2s; /* Duración de la transición */
-  box-shadow: 0 0 5px rgb(237, 237, 237); /* Sombra */
+.busqueda:active:before {
+  filter: none;
+}
+
+@keyframes neon-glow {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #2eccac,
+      0 0 70px #2eccac, 0 0 80px #2eccac, 0 0 100px #2eccac;
+  }
+
+  to {
+    box-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #2eccac, 0 0 70px #2eccac,
+      0 0 80px#2eccac, 0 0 100px #2eccac, 0 0 150px #2eccac;
+  }
 }

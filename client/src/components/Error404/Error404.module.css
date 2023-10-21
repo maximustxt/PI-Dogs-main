@@ -1,0 +1,66 @@
+.div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 30px;
+  border-radius: 10px;
+  border: 5px solid black;
+  width: 500px;
+}
+
+.div1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 250px;
+}
+
+.Link {
+  margin-bottom: 20px;
+  text-decoration: none;
+  background-color: rgb(253, 58, 58);
+  color: #fdfdfd;
+  border: none;
+  padding: 15px 35px;
+  border-radius: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+.Link:hover {
+  background-color: #000000;
+  color: #ffffff;
+  animation: neon-glow 1s ease-out infinite alternate;
+}
+
+/* .neon:active {
+    background-color: #fff;
+    color: #2ecc71;
+  } */
+
+.Link:active:before {
+  filter: none;
+}
+
+@keyframes neon-glow {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #cc432e,
+      0 0 70px #cc432e, 0 0 80px #cc432e, 0 0 100px #cc432e;
+  }
+
+  to {
+    box-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #cc432e, 0 0 70px #cc432e,
+      0 0 80px#cc432e, 0 0 100px #cc432e, 0 0 150px #cc432e;
+  }
+}
+
+.Error {
+  width: 80px;
+  height: 70px;
+}
+
+.h1 {
+  color: rgb(175, 65, 65);
+}

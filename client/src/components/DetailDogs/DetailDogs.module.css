@@ -1,4 +1,12 @@
+.divSuperPadre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .div {
+  width: 60%;
+  margin-top: 100px;
   display: flex;
   justify-content: space-around;
   border-radius: 10px;
@@ -29,4 +37,64 @@
 
 .divTemperament {
   display: flex;
+}
+
+.Link {
+  height: fit-content;
+  text-decoration: none;
+  border: 3px solid rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  color: #35d6c3;
+  padding: 10px 20px;
+  font-size: 15px;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+.Link:hover {
+  background-color: #ffffff;
+  color: #3c8b7e;
+  animation: neon-glow 1s ease-out infinite alternate;
+}
+
+.Link:active:before {
+  filter: none;
+}
+
+@keyframes neon-glow {
+  from {
+    box-shadow: 0 0 10px #a28e8e, 0 0 20px #000000, 0 0 30px #fff,
+      0 0 40px #2eccac, 0 0 70px #2eccac, 0 0 80px #2eccac, 0 0 100px #2eccac;
+  }
+
+  to {
+    box-shadow: 0 0 20px #958282, 0 0 30px #000000, 0 0 40px #2eccac,
+      0 0 70px #2eccac, 0 0 80px#2eccac, 0 0 100px #2eccac, 0 0 150px #2eccac;
+  }
+}
+
+.divLink1 {
+  width: 70%;
+  border-radius: 5px;
+  border: gray solid 3px;
+  height: fit-content;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  margin: 20px;
+}
+
+.divLink {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.imagen {
+  border-radius: 5px;
+  width: 60px;
+  height: 60px;
+}
+.p {
+  font-weight: bold;
+  font-size: 20px;
 }

@@ -5,6 +5,8 @@ import { DetailDogs, cleanDetail } from "../../redux/actions"; // cuand hago sin
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import image from "../image/collie-de-frontera.png";
 
 const DetailPerros = () => {
   const dispatch = useDispatch();
@@ -19,44 +21,81 @@ const DetailPerros = () => {
     };
   }, [idRaza]);
 
-  return DogDetail.id ? (
-    DogDetail.created !== false ? (
-      <div className={styles.div}>
-        <div className={styles.divCaracteres}>
-          <h3>Name : {DogDetail.name}</h3>
-          <h3>Height : {DogDetail.height + " " + "Cm"}</h3>
-          <h3>weight : {DogDetail.weight + " " + "Kg"}</h3>
-          <div className={styles.divTemperament}>
-            <h3>Temperaments : {DogDetail.Temperaments[0].name}</h3>
-          </div>
-          <h3>Life_span : {DogDetail.life_span + " " + "years"}</h3>
-        </div>
-        <img
-          className={styles.img}
-          src={DogDetail.image}
-          alt={DogDetail.name}
-        />
-      </div>
-    ) : (
-      <div className={styles.div}>
-        <div className={styles.divCaracteres}>
-          <h3>Name : {DogDetail.name}</h3>
-          <h3>Height : {DogDetail.height + " " + "Cm"}</h3>
-          <h3>weight : {DogDetail.weight + " " + "Kg"}</h3>
-          <div className={styles.divTemperament}>
-            <h3>Temperaments : {DogDetail.temperament}</h3>
-          </div>
-          <h3>Life_span : {DogDetail.life_span}</h3>
-        </div>
-        <img
-          className={styles.img}
-          src={DogDetail.image}
-          alt={DogDetail.name}
-        />
-      </div>
-    )
-  ) : (
-    <Loading />
+  return (
+    <>
+      {DogDetail.id ? (
+        DogDetail.created !== false ? (
+          <>
+            <div className={styles.divSuperPadre}>
+              <div className={styles.divLink1}>
+                <img className={styles.imagen} src={image} />
+                <p className={styles.p}>Detail of the Dog</p>
+                <div className={styles.divLink}>
+                  <Link className={styles.Link} to="/HomePage">
+                    Home
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className={styles.divSuperPadre}>
+              <div className={styles.div}>
+                <div className={styles.divCaracteres}>
+                  <h3>Name : {DogDetail.name}</h3>
+                  <h3>Height : {DogDetail.height + " " + "Cm"}</h3>
+                  <h3>weight : {DogDetail.weight + " " + "Kg"}</h3>
+                  <div className={styles.divTemperament}>
+                    <h3>
+                      Temperaments :
+                      {DogDetail.Temperaments?.map((t) => t.name).join(", ")}
+                    </h3>
+                  </div>
+                  <h3>Life_span : {DogDetail.life_span + " " + "years"}</h3>
+                </div>
+                <img
+                  className={styles.img}
+                  src={DogDetail.image}
+                  alt={DogDetail.name}
+                />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.divSuperPadre}>
+              <div className={styles.divLink1}>
+                <img className={styles.imagen} src={image} />
+                <p className={styles.p}>Detail of the Dog</p>
+                <div className={styles.divLink}>
+                  <Link className={styles.Link} to="/HomePage">
+                    Home
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className={styles.divSuperPadre}>
+              <div className={styles.div}>
+                <div className={styles.divCaracteres}>
+                  <h3>Name : {DogDetail.name}</h3>
+                  <h3>Height : {DogDetail.height + " " + "Cm"}</h3>
+                  <h3>weight : {DogDetail.weight + " " + "Kg"}</h3>
+                  <div className={styles.divTemperament}>
+                    <h3>Temperaments : {DogDetail.temperament}</h3>
+                  </div>
+                  <h3>Life_span : {DogDetail.life_span}</h3>
+                </div>
+                <img
+                  className={styles.img}
+                  src={DogDetail.image}
+                  alt={DogDetail.name}
+                />
+              </div>
+            </div>
+          </>
+        )
+      ) : (
+        <Loading />
+      )}
+    </>
   );
 };
 

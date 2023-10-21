@@ -1,19 +1,27 @@
 //? ACA VA A ESTAR EL FORMULARIO DONDE NOSOTROS VAMOS A PODER CREAR NUESTRO PERRO...
 import { Validation, ErrorHeingth, Errorweight } from "./validation";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import styles from "./CreateDogs.module.css";
-import { temperamentsDog } from "../../redux/actions";
 import axios from "axios";
-import Creator from "../Creator/Creator";
+import { useDispatch, useSelector } from "react-redux";
+import FormDog from "../FormDog/Form";
+import { temperamentsDog, TodosLosDogs } from "../../redux/actions";
+import { useEffect, useState } from "react";
+import swal from "sweetalert";
 
 const CreateDogs = () => {
   const Temperaments = useSelector((state) => state.Temperaments); // esto seria el array...
+  const AllDogs = useSelector((state) => state.AllDogs);
   const dispatch = useDispatch();
-  const [heightMin, setHeightMin] = useState("");
-  const [heightMax, setHeightMax] = useState("");
-  const [weightMin, setWeightMin] = useState("");
-  const [weightMax, setWeightMax] = useState("");
+  const [heightMin, setHeightMin] = useState();
+  const [heightMax, setHeightMax] = useState();
+  const [weightMin, setWeightMin] = useState();
+  const [weightMax, setWeightMax] = useState();
+
+  console.log(AllDogs);
+
+  useEffect(() => {
+    dispatch(temperamentsDog());
+    dispatch(TodosLosDogs());
+  }, []);
 
   const [Form, setForm] = useState({
     name: "",
@@ -25,55 +33,75 @@ const CreateDogs = () => {
   });
   const [Error, setError] = useState({
     name: "",
-    life_span: 0,
+    life_span: "",
     image: "",
   });
 
   const onChageHeigthMin = (event) => {
     const MIN = event.target.value;
     setHeightMin(MIN);
-    Form.height.min = MIN;
+    Form.height.min = MIN.toString();
   };
 
   const onChageHeigthMax = (event) => {
     const MAX = event.target.value;
     setHeightMax(MAX);
-    Form.height.max = MAX;
+    Form.height.max = MAX.toString();
   };
 
   const onChageWeightMin = (event) => {
     const MIN = event.target.value;
     setWeightMin(MIN);
-    Form.weight.min = MIN;
+    Form.weight.min = MIN.toString();
   };
 
   const onChageWeightMax = (event) => {
     const MAX = event.target.value;
     setWeightMax(MAX);
-    Form.weight.max = MAX;
+    Form.weight.max = MAX.toString();
   };
   const FuncionDelete = (TPM) => {
     // recibo por parametro el temperamento que voy a eliminar en caso de hacer click
+
     setForm({
       ...Form,
-      temperament: Form.temperament.filter((temp) => temp !== TPM),
+      temperament: Form.temperament.filter((temp) => temp[1] !== TPM),
     }); // seteo el estado y modifico el array Form.temperament con un filter y sacandole el temperamento..
   };
-
-  {
-    /*------------------------------temperamenst---------------------------*/
-  }
-  useEffect(() => {
-    dispatch(temperamentsDog());
-  }, []);
 
   const onChange = (event) => {
     if (event.target.name === "temperament") {
       // Es el name del select.. si coincide con el que hace el evento entonces seteamos dentro de nuestro array de temperaments todo lo que habia en el mismo , sumado con el value que yo coloco cuando hago click en alguna option..
+      const obj = Temperaments.find((temp) => temp.name === event.target.value);
+
+      console.log(obj);
+
       setForm({
         ...Form,
-        temperament: [...Form.temperament, event.target.value],
-      });
+        temperament: [...Form.temperament, [obj.id, obj.name]],
+      }); // seteo un elemento nuevo...
+
+      //claro nunca voy a tener nada por eso el bucle for no funciona!!!
+      for (let i = 0; i < Form.temperament.length; i++) {
+        //recorro el array..
+        if (Form.temperament[i].includes(obj.name)) {
+          // si ya incluia un valor repetido entonces tira un alert y filtro el array de temperamentos  , para que obj no se incluya de nuevo en el array mismo.
+          swal({
+            title: "Alert",
+            text: "Este temperamento ya esta incluido con Temperamnets.",
+            icon: "warning",
+            buttons: "Aceptar",
+          });
+
+          setForm({
+            ...Form,
+            temperament: [...Form.temperament].filter(
+              (temp) => temp !== [obj.id, obj.name]
+            ), // saco el elemento que ya esta incluido..
+          });
+          break; // y corto el bucle for.
+        }
+      }
     } else {
       const Propiedad = event.target.name;
       const value = event.target.value;
@@ -88,14 +116,22 @@ const CreateDogs = () => {
 
   const SubmitHandle = async (event) => {
     if (
-      Form.height.length === 0 ||
-      Form.weight.length === 0 ||
+      Form.height.heightMin === 0 ||
+      Form.height.heightMax === 0 ||
+      Form.weight.weightMin === 0 ||
+      Form.weight.weightMax === 0 ||
       Form.name.length === 0 ||
       Form.life_span.length === 0 ||
       Form.image.length === 0 ||
-      Form.temperament.length === 0
+      !Form.temperament.length // si no tiene longitud el array , porque si pongo que es igual a cero me va a tirar el alert cuando elimine el primer elemento...
     ) {
-      alert("Debes completar todos los campos obligatoriamente");
+      event.preventDefault(); // esto es para evitar que la pagina se recargue..
+      swal({
+        title: "Alert",
+        text: "Debes completar todos los campos obligatoriamente",
+        icon: "warning",
+        buttons: "Aceptar",
+      });
     } else if (
       Error.image.length !== 0 ||
       Error.life_span.length !== 0 ||
@@ -103,153 +139,56 @@ const CreateDogs = () => {
       ErrorHeingth(heightMin, heightMax) !== undefined ||
       Errorweight(weightMin, weightMax) !== undefined
     ) {
-      alert("Tienes errores en los campos");
-    } else {
-      await axios.post("http://localhost:3001/dogs", Form); // From seria el body...
-      alert("Perro creado exitosamente");
       event.preventDefault(); // esto es para evitar que la pagina se recargue..
+      swal({
+        title: "Alert",
+        text: "Tienes errores en los campos",
+        icon: "error",
+        buttons: "Aceptar",
+      });
+    } else {
+      const DogRepetido = AllDogs.filter(
+        (dog) =>
+          dog === Form || dog.name === Form.name || dog.image == Form.image
+      ); // recorro el array de perros para saber si ya se encunetra un perro repetido..
+      //|| dog.image === Form.image
+
+      if (!DogRepetido.length) {
+        await axios.post("http://localhost:3001/dogs", Form); // From seria el body...
+        swal({
+          text: "Perro creado exitosamente",
+          icon: "saccess",
+          buttons: "Aceptar",
+        });
+      } else {
+        event.preventDefault(); // esto es para evitar que la pagina se recargue..
+        swal({
+          title: "Atencion",
+          text: "Ya existe una Raza de perro con estas caracteristicas",
+          icon: "warning",
+          buttons: "Aceptar",
+        });
+      }
     }
   };
 
   return (
-    <div className={styles.divPadre}>
-      <div className={styles.div}>
-        <form onSubmit={SubmitHandle}>
-          {/*-------------------------------NOMBRE---------------------------*/}
-          <div className={styles.divInput}>
-            <label htmlFor="name">Name: </label>
-            <input
-              className={styles.input}
-              value={Form.name}
-              name="name"
-              type="text"
-              onChange={onChange}
-              placeholder="Escribe el name del perro."
-            />
-            <span className={styles.span}>{Error.name}</span>
-          </div>
-          {/*-------------------------------ALTURA---------------------------*/}
-          <div className={styles.divInput}>
-            <label>
-              Height:
-              <label htmlFor="heightMin">
-                <input
-                  className={styles.input2}
-                  value={heightMin}
-                  name="heightMin"
-                  type="text"
-                  onChange={onChageHeigthMin}
-                  placeholder="Escribe la altura minima."
-                />
-                Min
-              </label>
-              <label htmlFor="heightMax">
-                <input
-                  className={styles.input2}
-                  name="heightMax"
-                  value={heightMax}
-                  type="text"
-                  onChange={onChageHeigthMax}
-                  placeholder="Escribe la altura maxima."
-                />
-                Max
-              </label>
-            </label>
-            <span className={styles.span}>
-              {ErrorHeingth(heightMin, heightMax)}
-            </span>
-          </div>
-          {/*-----------------------------PESO-----------------------------*/}
-          <div className={styles.divInput}>
-            <label htmlFor="weight">
-              Weight:
-              <label htmlFor="weightMin">
-                <input
-                  className={styles.input2}
-                  name="weightMin"
-                  value={weightMin}
-                  type="text"
-                  onChange={onChageWeightMin}
-                  placeholder="Escribe el peso minimo."
-                />
-                Min
-              </label>
-              <label htmlFor="weightMax">
-                <input
-                  className={styles.input2}
-                  name="weightMax"
-                  value={weightMax}
-                  type="text"
-                  placeholder="Escribe el peso maximo."
-                  onChange={onChageWeightMax}
-                />
-                Max
-              </label>
-            </label>
-            <span className={styles.span}>
-              {Errorweight(weightMin, weightMax)}
-            </span>
-          </div>
-          {/*----------------------------LIFE------------------------------*/}
-          <div className={styles.divInput}>
-            <label htmlFor="life_span">Life_span:</label>
-            <input
-              className={styles.input}
-              name="life_span"
-              value={Form.life_span}
-              type="number"
-              placeholder="Escribe los años de vida."
-              onChange={onChange}
-            />
-            <span className={styles.span}>{Error.life_span}</span>
-          </div>
-          {/*--------------------------IMAGEN--------------------------------*/}
-          <div className={styles.divInput}>
-            <label htmlFor="image">Image:</label>
-            <input
-              className={styles.input}
-              name="image"
-              value={Form.image}
-              type="text"
-              onChange={onChange}
-              placeholder="Escribe la URL de la imagen."
-            />
-            <span className={styles.span}>{Error.image}</span>
-          </div>
-          {/*--------------------------Temperaments------------------------------*/}
-          <select
-            className={styles.selects}
-            name="temperament"
-            onChange={onChange}
-          >
-            <option value="" selected>
-              Select a Temperament
-            </option>
-            {Temperaments?.map((temp) => {
-              return <option value={temp.name}>{temp.name}</option>;
-            })}
-          </select>
-          <hr />
-          <div className={styles.Selecccion}>
-            {Form.temperament?.map((temp) => (
-              <div className={styles.div4}>
-                <button
-                  className={styles.button}
-                  onClick={() => FuncionDelete(temp)}
-                >
-                  X
-                </button>
-                <p>{temp}</p>
-              </div>
-            ))}
-          </div>
-          <button className={styles.Boton} type="submit">
-            Submit
-          </button>
-        </form>
-      </div>
-      <Creator />
-    </div>
+    <FormDog
+      SubmitHandle={SubmitHandle}
+      onChange={onChange}
+      FuncionDelete={FuncionDelete}
+      onChageWeightMax={onChageWeightMax}
+      onChageWeightMin={onChageWeightMin}
+      onChageHeigthMax={onChageHeigthMax}
+      onChageHeigthMin={onChageHeigthMin}
+      Form={Form}
+      Temperaments={Temperaments}
+      heightMin={heightMin}
+      heightMax={heightMax}
+      weightMin={weightMin}
+      weightMax={weightMax}
+      Error={Error}
+    />
   );
 };
 

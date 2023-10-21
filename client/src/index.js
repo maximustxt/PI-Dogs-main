@@ -5,6 +5,9 @@ import "./index.css";
 import App from "../src/App";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import axios from "axios";
+
+// axios.defaults.baseURL = "http://localhost:3001";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -14,25 +17,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-//-------------------------------------------------------------------------------------------------------//
-
-// ReactDOM.render(
-//   <Provider store={store}>
-//     ,
-//     <BrowserRouter>
-//       ,
-//       <App />,
-//     </BrowserRouter>
-//     ,
-//   </Provider>,
-//   document.getElementById("root")
-// );
-
-//Con PROVIDER conectamos redux con react...
-//BrowserRouter nos da la posibilidad de poder usar rutas , links , ect...
-// </React.StrictMode> <React.StrictMode> import reportWebVitals from "./reportWebVitals";
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

@@ -17,11 +17,6 @@
   animation: neon-glow 1s ease-out infinite alternate;
 }
 
-/* .neon:active {
-  background-color: #fff;
-  color: #2ecc71;
-} */
-
 .neon:active:before {
   filter: none;
 }

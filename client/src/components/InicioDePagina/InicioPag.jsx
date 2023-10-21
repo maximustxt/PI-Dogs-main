@@ -14,7 +14,7 @@ const InicioPag = () => {
           </p>
           <Link to="/HomePage" className={styles.neon}>
             {/*cuando toque el link me dirije a la ruta /HomePage*/}
-            Get Into
+            Let's Go!
           </Link>
         </div>
       </div>

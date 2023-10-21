@@ -1,7 +1,7 @@
 .div {
   display: flex;
   justify-content: center;
-  margin: 5px;
+  margin: 50px;
   padding: 10px;
 }
 
@@ -12,16 +12,11 @@
   margin: 10px;
 }
 
-/* .Boton {
-  width: fit-content;
-  height: fit-content;
-} */
-
 .Boton {
   background-color: #000000; /* Color de fondo */
   border: none; /* Sin borde */
   color: white; /* Color del texto */
-  height: 40px;
+  height: 35px;
   width: 80px;
   border-radius: 3px;
   /* padding: 15px 32px; Tamaño del botón */
@@ -54,7 +49,7 @@
   background-color: #000000; /* Color de fondo */
   border: none; /* Sin borde */
   color: white; /* Color del texto */
-  height: 40px;
+  height: 35px;
   width: 80px;
   border-radius: 3px;
   /* padding: 15px 32px; Tamaño del botón */
@@ -81,4 +76,49 @@
   transform: scale(0.9); /* Escalar el botón */
   transition-duration: 0.2s; /* Duración de la transición */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra */
+}
+
+.input {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  /* margin: 5px; */
+  border-radius: 5px;
+  background-color: #000000;
+  color: aliceblue;
+}
+
+.input:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.1); /* Escalar el botón */
+  transition-duration: 0.2s; /* Duración de la transición */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+}
+
+.input:active,
+.input.active {
+  background-color: rgb(196, 245, 229);
+  color: rgb(0, 0, 0);
+}
+
+.input2 {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  /* margin: 5px; */
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
+.divButon {
+  margin: 0px;
+  padding: 10px;
+  /* padding: 10px; */
+  /* height: 100px;
+  background-color: #3e8e41;
+  display: flex;
+  flex-direction: column;
+  align-items: center; */
 }

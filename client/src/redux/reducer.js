@@ -9,6 +9,7 @@ import {
   ORDENAMIENTO_ABECEDARIO,
   FILTRADO_TEMPERAMENTO,
   FILTRADO_DOGS,
+  DELETEDOG,
 } from "./index";
 
 const initialState = {
@@ -93,11 +94,11 @@ const rootReducer = (state = initialState, actions) => {
         AllDogs: [...state.AllDogs].sort((a, b) => {
           if (a.name < b.name) {
             // ordena alfaveticamente... si a es menor alfaveticamente que b entonces lo ordena de forma acendente..
-            return actions.payload === "z-a" ? 1 : -1;
+            return actions.payload === "Z a A" ? 1 : -1;
           }
           if (a.name > b.name) {
             // ordena alfaveticamente... si a es mayor alfaveticamente que b entonces lo ordena de forma Decendente..
-            return actions.payload === "z-a" ? -1 : 1;
+            return actions.payload === "Z a A" ? -1 : 1;
           }
         }),
       };
@@ -117,7 +118,7 @@ const rootReducer = (state = initialState, actions) => {
       return {
         ...state,
         AllDogs:
-          actions.payload === "AllDogs"
+          actions.payload === "Data Origin"
             ? [...state.AllDogsCopia].map((dog) => dog)
             : actions.payload === "DogsApi"
             ? [...state.AllDogsCopia].filter(
@@ -126,6 +127,11 @@ const rootReducer = (state = initialState, actions) => {
             : [...state.AllDogsCopia].filter(
                 (dog) => typeof dog.id !== "number"
               ),
+      };
+    case DELETEDOG:
+      return {
+        ...state,
+        AllDogs: state.AllDogs.filter((dog) => dog !== actions.payload),
       };
 
     default:
